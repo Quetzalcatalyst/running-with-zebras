@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>running-with-zebras</display-name>
+  <welcome-file-list>
+  	<welcome-file>home.jsp</welcome-file>
+  </welcome-file-list>
+  
+ <servlet>
+  	<description>Servlet used to edit profiles</description>
+  	<servlet-name>ProfileEdit</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.UpdateProfile</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<description>Servlet used to edit bios</description>
+  	<servlet-name>BioEdit</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.UpdateBio</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<description>Servlet used to serve up search results</description>
+  	<servlet-name>Search</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.Search</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<description>Converts image to words (doctors + patients)</description>
+  	<display-name>ImageUploadTest</display-name>
+  	<servlet-name>ImageUploadTest</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.ImageUploadTest</servlet-class>
+  </servlet>
+  
+ 
+  
+ 
+  
+  
+ 
+  <servlet-mapping>
+  <servlet-name>ImageUploadTest</servlet-name>
+  <url-pattern>/images</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>ProfileEdit</servlet-name>
+  	<url-pattern>/updateprofile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>BioEdit</servlet-name>
+  	<url-pattern>/updatebio</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Search</servlet-name>
+  	<url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>
