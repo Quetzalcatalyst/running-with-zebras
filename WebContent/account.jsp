@@ -39,7 +39,7 @@
 </head>
 
 <!-- NOTE: Add code to reformat URL to user name (+ sign in preferences) -->
-
+<!-- Also add code to redirect if the user is not logged in.  -->
 
 
 <body>
@@ -66,7 +66,7 @@
 	// userKey for use later 
 	Key userKey = KeyFactory.createKey("User", userid);
 	
-	
+		
 
 %>
 
@@ -109,7 +109,7 @@
 	<dd class="tab-title active"><a href="#Bio">Bio</a></dd>
 	<dd class="tab-title"><a href="#Profiles">Profiles</a></dd>
 	<dd class="tab-title"><a href="#Settings">Settings</a></dd>
-	<dd class="tab-title"><a href="#SavedSearches">Saved Searches</a>
+	<dd class="tab-title"><a href="#Searches">Saved Searches</a>
 </dl>
 
 <!-- Bio tab, to display personal information -->
@@ -238,14 +238,17 @@
 	</div>
 	
 	
-	<div class="content" id="Profiles">
+<div class="content" id="Profiles">
+	
+	
+	
 	
 	<!-- List profiles here  -->
 	<div class="profiles"><%
 	
     		
-		Query q = new Query("Profile").setAncestor(userKey);
-		PreparedQuery profiles = datastore.prepare(q);
+		Query qp = new Query("Profile").setAncestor(userKey);
+		PreparedQuery profiles = datastore.prepare(qp);
 		int profileIndex = 1;
 		for (Entity profile : profiles.asIterable()) {
 			String profname = (String)profile.getProperty("Profname");
@@ -431,14 +434,51 @@
 	<a href="#" class="button">Update</a>
 	
 	</div>
-</div>
 
-<div class="content" id="SavedSearches">
+
+	<div class="content" id="Searches">
+	
 	<!-- Add code here for Saved Searches -->
+	<div class="searches">
+	<%
+	
+	
+	
+	//Logger log = Logger.getLogger(this.getClass().getName());
+	//log.info("test");
+
+	
+	Query qs = new Query("Search").setAncestor(userKey);
+	PreparedQuery searches = datastore.prepare(qs);
+	int searchIndex = 1;
+	for (Entity search: searches.asIterable()) {
+		String searchName = (String)search.getProperty("name");
+		String searchUrl = (String)search.getProperty("searchUrl");
+		
+		//log.info(searchName + searchUrl);
+	
+		searchIndex += 1; 
+		
+		pageContext.setAttribute("searchName",searchName);
+		pageContext.setAttribute("searchUrl",searchUrl);
+	%>
+	<!-- NOTE: Add code here to edit searches and delete searches  -->
+	<div class="row">
+		<form action="/search" method="post">
+		<!-- click on link to edit -->
+		<a href="#">${searchName}</a>
+		<input type="hidden" name="searchUrl" value="${searchUrl}">
+		<input type="submit" value="Run Search" class="button tiny">
+		
+		</form>
+	</div>
+	<% } %>
+	</div>
+	
 
 
+	</div>
 </div>
-
 
 
 </body>

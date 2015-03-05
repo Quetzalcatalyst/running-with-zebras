@@ -24,6 +24,12 @@
   </servlet>
   
   <servlet>
+  	<description>Servlet used to save search query</description>
+  	<servlet-name>SaveSearch</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.SaveSearch</servlet-class>
+  </servlet>
+  
+  <servlet>
   	<description>Converts image to words (doctors + patients)</description>
   	<display-name>ImageUploadTest</display-name>
   	<servlet-name>ImageUploadTest</servlet-name>
@@ -53,6 +59,9 @@
   	<servlet-name>Search</servlet-name>
   	<url-pattern>/search</url-pattern>
   </servlet-mapping>
-  
+  <servlet-mapping>
+  	<servlet-name>SaveSearch</servlet-name>
+  	<url-pattern>/saveSearch</url-pattern>
+  </servlet-mapping>
   
 </web-app>

@@ -39,8 +39,11 @@ public class UpdateProfile extends HttpServlet {
 	    
 	    
 	    Key userKey = KeyFactory.createKey("User", userid);
+	    
+	    // Doesn't necessarily need the try/catch statement 
+	    
 	    try {
-			Entity user = datastore.get(userKey);
+			//Entity user = datastore.get(userKey);
 			Entity profile = new Entity("Profile", userKey);
 			
 			profile.setProperty("Profname",req.getParameter("profilename"));

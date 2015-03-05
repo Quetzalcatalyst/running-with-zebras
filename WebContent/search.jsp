@@ -6,6 +6,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.logging.Logger" %>
 <%@ page import="com.hackathon.runningwithzebras.Zebra" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,6 +18,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<style>
+.searchBar{
+	padding-top: 20px;
+
+}
+
+
+
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type ="text/css" href="foundation.min.css">  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -24,7 +38,7 @@
 
 <body>
 
-<!-- NOTE Add code to change  -->
+<!-- NOTE: Add code to save search  -->
 
 <!--  Java code to get username/etc.  -->
 <%
@@ -77,12 +91,56 @@
 	</ul>
 </nav>
 
-<%
-// NOTE: Add code here to grab symptoms from profile if requested 
+
+<!--  NOTE: need to change text in placeholder to be editable -->
+
+<div class ="searchBar">
+<div class="row">
+    <div class="large-12 columns">
+      <div class="row collapse">
+      <form action="/search" method="post">
+        <div class="large-8 columns">       
+          <input type="text" name="symptoms" placeholder="${symptomString}">
+        </div>
+        <div class="large-2 columns">
+          <input type="submit" value="Search" class="button postfix">
+        </div>
+        <div class="large-2 columns">
+        	<a href="#" data-reveal-id="saveModal" class="button postfix">Save Search</a>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="saveModal" class="reveal-modal" data-reveal>
+<% 
+
+DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd - HH:mm:ss");
+Date date = new Date();
+pageContext.setAttribute("templateSearch",dateFormat.format(date));
 
 %>
+<!-- Need to change text in placeholder to be editable -->
+<h3>Name the Search</h3>
+<form action="/saveSearch" method="post">
+<div class="large-10 columns">
+<input type="text" name="searchName" placeholder="${templateSearch} - ${symptomString}">
+</div>
+<input type="hidden" name="searchUrl" value="${searchUrl }">
+<div class="large-2 columns">
+<input type="submit" value="Submit" class="button">
+</div>
+</form>
+
+</div>
+
+<script>
 
 
+</script>
 
 <dl class="accordion" data-accordion>
 <% int searchIndex = 0; %>

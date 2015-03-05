@@ -40,14 +40,33 @@ import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class Search extends HttpServlet {
-	
+		
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 		      throws IOException {		    
 		    
+			// add code here to check if the searchUrl is already available, otherwise make it out of search query
+			//if 
+			
+		
+			String urlString; 
+			/*
+			try {
+				req.getParameter("searchUrl");		
+				urlString = req.getParameter("searchUrl");
+				logger.info("We got a searchUrl");
+				logger.info(urlString);
+				//}
+			}
+			catch(NullPointerException e)
+			{	
+			*/	
+			//	logger.info("We're trying to make a searchUrl");
 			// make an array of symptoms from the text input     
 		    String symptoms = req.getParameter("symptoms");
+		    //logger.info(symptoms);
+		    req.setAttribute("symptomString",symptoms);
 		    List<String> symptomArray = Arrays.asList(symptoms.split(","));
 		    		    
 		    
@@ -58,7 +77,7 @@ public class Search extends HttpServlet {
 		    }
 		    
 		    String symptomURL = "";
-
+			
 		    
 		 // Formats the string for the XML Request 
 		    for (int i = 0; i < symptomArray.size(); i++ ){				
@@ -74,13 +93,19 @@ public class Search extends HttpServlet {
 				}
 		   
 		    }
-		   
+		    urlString = "http://findzebra.compute.dtu.dk/api/call/xml/query?q="+symptomURL+"score=score%20desc&fl=score,%20display_title,%20associated_gene,symptom,content,source_url,source,retrieved_date&rows=75" ;
+		    req.setAttribute("searchUrl",urlString);
+		    
+			
+			
+		   	
 		    
 		    // opens a connection to findzebra, and grabs the XML
 		    // NOTE: change the number of results returned here (+ other filters)
 		    
-		    String urlString = "http://findzebra.compute.dtu.dk/api/call/xml/query?q="+symptomURL+"score=score%20desc&fl=score,%20display_title,%20associated_gene,symptom,content,source_url,source,retrieved_date&rows=75" ;
-			URL url = new URL(urlString);
+		    
+		    
+		    URL url = new URL(urlString);
 			URLConnection connection = url.openConnection();
 			InputStream in = connection.getInputStream();
 			InputSource responseXML = new InputSource(in);
@@ -182,7 +207,7 @@ public class Search extends HttpServlet {
 					if (inContent){
 						
 						String s = new String(buf, offset, len);
-						logger.info("Content: "+s);
+					//	logger.info("Content: "+s);
 						content = s; 
 					}
 					
@@ -235,6 +260,8 @@ public class Search extends HttpServlet {
 			}
 	
 			req.setAttribute("zebraList",zebralist);
+			
+			
 			try {
 				//logger.info("In dispatcher!");
 				req.getRequestDispatcher("/search.jsp").forward(req,resp);
