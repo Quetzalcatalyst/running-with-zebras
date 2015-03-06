@@ -466,7 +466,7 @@
 	<div class="row">
 		<form action="/search" method="post">
 		<!-- click on link to edit -->
-		<a href="#">${searchName}</a>
+		<a href="/search">${searchName}</a>
 		<input type="hidden" name="searchUrl" value="${searchUrl}">
 		<input type="submit" value="Run Search" class="button tiny">
 		

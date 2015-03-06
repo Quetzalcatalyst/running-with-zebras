@@ -93,7 +93,7 @@
 
 
 <!--  NOTE: need to change text in placeholder to be editable -->
-
+<!-- NOTE: Trouble getting search to work from here, check console -->
 <div class ="searchBar">
 <div class="row">
     <div class="large-12 columns">

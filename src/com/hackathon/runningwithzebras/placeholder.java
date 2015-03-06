@@ -50,63 +50,60 @@ public class Search extends HttpServlet {
 			// 
 			
 		
-			String urlString ="";
+			String urlString; 
 			
 			try {
 				if(req.getParameter("searchUrl") != null){
 					logger.info("We got a searchUrl");
 					logger.info(req.getParameter("searchUrl"));
-					urlString = req.getParameter("searchUrl");
-					
-				}
-				else{
-					// make an array of symptoms from the text input     
-				    String symptoms = req.getParameter("symptoms");
-				  
-				    req.setAttribute("symptomString",symptoms); // sets the symptoms to be displayed as placeholder in the textbox 
-				    List<String> symptomArray = Arrays.asList(symptoms.split(","));
-				    		    
-				    
-				    // Add the comma back to each element (for purposes of URL queries), this code isn't really needed 
-				    for(int i = 0; i < symptomArray.size(); i++ ){
-				    	String symptom = symptomArray.get(i)+",";
-				    	symptomArray.set(i,symptom);
-				    }
-				    
-				    String symptomURL = "";
-					
-				    
-				 // Formats the string for the XML Request 
-				    for (int i = 0; i < symptomArray.size(); i++ ){				
-						String symptom = symptomArray.get(i);
-						symptom = symptom.replaceAll(" ", "+");
-						if (i != symptomArray.size() - 1){
-							symptom = symptom.replace(",","%2C");
-							symptomURL += symptom;
-						}
-						else {
-							symptom = symptom.replace(",","&");
-							symptomURL += symptom;
-						}
-				   
-				    }
-				    
-				    
-				    String numResultsUrl = req.getParameter("numResults"); // sets the number of results to be returned
-				    
-				    urlString = "http://findzebra.compute.dtu.dk/api/call/xml/query?q="+symptomURL+"score=score%20desc&fl=score,%20display_title,%20associated_gene,symptom,content,source_url,source,retrieved_date&rows="+numResultsUrl;
-				  
-				}
-				
-						
-				
+					//logger.info(urlString);
+				};		
+				//urlString = req.getParameter("searchUrl");
+				//logger.info("We got a searchUrl");
+				//logger.info(urlString);
+				//}
 			}
 			catch(NullPointerException e){
 			logger.info("It's null");
 			}	
 				
+			//	logger.info("We're trying to make a searchUrl");
+			// make an array of symptoms from the text input     
+		    String symptoms = req.getParameter("symptoms");
+		    //logger.info(symptoms);
+		    req.setAttribute("symptomString",symptoms); // sets the symptoms to be displayed as placeholder in the textbox 
+		    List<String> symptomArray = Arrays.asList(symptoms.split(","));
+		    		    
+		    
+		    // Add the comma back to each element (for purposes of URL queries), this code isn't really needed 
+		    for(int i = 0; i < symptomArray.size(); i++ ){
+		    	String symptom = symptomArray.get(i)+",";
+		    	symptomArray.set(i,symptom);
+		    }
+		    
+		    String symptomURL = "";
 			
-			req.setAttribute("searchUrl",urlString);
+		    
+		 // Formats the string for the XML Request 
+		    for (int i = 0; i < symptomArray.size(); i++ ){				
+				String symptom = symptomArray.get(i);
+				symptom = symptom.replaceAll(" ", "+");
+				if (i != symptomArray.size() - 1){
+					symptom = symptom.replace(",","%2C");
+					symptomURL += symptom;
+				}
+				else {
+					symptom = symptom.replace(",","&");
+					symptomURL += symptom;
+				}
+		   
+		    }
+		    
+		    
+		    String numResultsUrl = req.getParameter("numResults"); // sets the number of results to be returned
+		    
+		    urlString = "http://findzebra.compute.dtu.dk/api/call/xml/query?q="+symptomURL+"score=score%20desc&fl=score,%20display_title,%20associated_gene,symptom,content,source_url,source,retrieved_date&rows="+numResultsUrl;
+		    req.setAttribute("searchUrl",urlString);
 		    
 			
 			

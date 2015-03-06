@@ -42,9 +42,13 @@ div.title.h1{
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type ="text/css" href="foundation.min.css">  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" type ="text/css" href="foundation.min.css"> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="foundation.min.js"></script>
+<script>
+$(document).foundation();
 
+</script>
 
 
 <title>Running with Zebras</title>
@@ -123,16 +127,19 @@ div.title.h1{
         </div>
         <div class="small-2 columns">
           <input type="submit" value="Search" class="button postfix">
+          <input type="hidden" value="" name="numResults">
         </div>
         </form>
       </div>
     </div>
   </div>
-  
-  <!-- Add code to select number of results (NOTE: doesn't work at the moment)  -->
-  <div class="row">
+
+ 
+ 
+<div class="row">
   <div class="small-10 medium-11 columns">
-   <div class="range-slider" data-slider data-options="display_selector: #sliderOutput3;">
+  	<h5>Number of results:</h5>
+    <div class="range-slider" id="resultsSlider" data-slider="20" data-options="start: 10; end: 100; step: 5; display_selector: #sliderOutput3;">
       <span class="range-slider-handle" role="slider" tabindex="0"></span>
       <span class="range-slider-active-segment"></span>
     </div>
@@ -141,7 +148,22 @@ div.title.h1{
     <span id="sliderOutput3"></span>
   </div>
 </div>
-  
+
+<!--  Script to set # of returned results, NOTE: Not working at the moment -->
+<script>
+
+
+$(document).foundation({
+  slider: {
+    on_change: function(){      
+     var numResults = $('#resultsSlider').attr('data-slider');
+     $('input[name="numResults"]').val(numResults)
+    // console.log($('input[name="numResults"]').attr('value'))
+    }
+  }
+})
+</script>
+
   
   <!--  NOTE: Add preference options which include:
   sort/rows/score/etc -->
@@ -151,10 +173,10 @@ div.title.h1{
 <!-- Add footer components here (disclaimer) -->
 <footer>
 </footer>
+<script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
 
 
 <!--  Various javascript from CDNs, can be trimmed -->
-<script src="foundation.min.js"></script>
 <!-- jQuery CDN -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <!-- jQuery local fallback -->
