@@ -22,7 +22,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 
-public class DeleteProfile extends HttpServlet {
+public class DeleteSearch extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp){
 		
@@ -36,16 +36,19 @@ public class DeleteProfile extends HttpServlet {
 		
 				
 		Filter indexFilter = 
-				new FilterPredicate("IndexStr",FilterOperator.EQUAL,req.getParameter("Index"));
+				new FilterPredicate("indexStr",FilterOperator.EQUAL,req.getParameter("Index"));
 		
-		Query qp = new Query("Profile").setAncestor(userKey).setFilter(indexFilter).setKeysOnly();
+		Query qs = new Query("Search").setAncestor(userKey).setFilter(indexFilter);
+				//.setKeysOnly();
 		
+		logger.info("We're trying to delete the search");
 		
-		PreparedQuery pq = datastore.prepare(qp);
-		for (Entity profile : pq.asIterable())
+		PreparedQuery pq = datastore.prepare(qs);
+		for (Entity search : pq.asIterable())
 		{
-			Key profileKey = profile.getKey();
-			datastore.delete(profileKey);
+			logger.info("Search Name: "+search.getProperty("name")+" Index:"+ search.getProperty("indexStr"));
+			//Key searchKey = search.getKey();
+			//datastore.delete(searchKey);
 		}
 		//Entity profile = pq.asSingleEntity();
 		//logger.info((String)profile.getProperty("Profname") + (String)profile.getProperty("Index"));

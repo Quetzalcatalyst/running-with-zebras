@@ -44,8 +44,6 @@ public class UpdateProfile extends HttpServlet {
 	    
 	    // Doesn't necessarily need the try/catch statement 
 	    
-	    try {
-			//Entity user = datastore.get(userKey);
 			Entity profile = new Entity("Profile", userKey);
 			
 			profile.setProperty("Profname",req.getParameter("profilename"));
@@ -65,13 +63,7 @@ public class UpdateProfile extends HttpServlet {
 			profile.setProperty("Symptoms",symptomArray);
 			
 			datastore.put(profile);
-			
-						
-		} catch (EntityNotFoundException e) {
-			// TODO Auto-generated catch block			
-			e.printStackTrace();
-		}
-	    
+				    
 	   try {
 		resp.sendRedirect("/account.jsp");
 	} catch (IOException e) {

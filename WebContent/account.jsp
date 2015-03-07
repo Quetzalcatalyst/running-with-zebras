@@ -468,7 +468,12 @@
 		String searchUrl = (String)search.getProperty("searchUrl");
 		
 		//log.info(searchName + searchUrl);
-	
+		String indexStr = Integer.toString(searchIndex);
+		search.setProperty("indexStr",indexStr);
+		
+		logger.info("");
+		datastore.put(search);		
+		//logger.info("Name: "+search.getProperty("name")+ "Index: " +search.getProperty("indexStr"));
 		searchIndex += 1; 
 		
 		pageContext.setAttribute("searchName",searchName);
@@ -480,8 +485,14 @@
 		<!-- click on link to edit -->
 		<a href="/search">${searchName}</a>
 		<input type="hidden" name="searchUrl" value="${searchUrl}">
-		<input type="submit" value="Run Search" class="button tiny">
+		<input type="submit" value="Run Search" class="button tiny">		
+		</form>
 		
+		
+		
+		<form action="/deleteSearch" method="post">
+		<input type="hidden" name="Index" value="${fn:escapeXml(indexStr)}">
+		<input type="submit" value="Delete Profile" class="button tiny">	
 		</form>
 	</div>
 	<% } %>

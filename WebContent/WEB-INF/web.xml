@@ -42,6 +42,13 @@
   	<servlet-class>com.hackathon.runningwithzebras.ImageUploadTest</servlet-class>
   </servlet>
   
+  <servlet>
+  	<description>Servlet used to remove searches</description>
+  	<display-name>Delete Search</display-name>
+  	<servlet-name>DeleteSearch</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.DeleteSearch</servlet-class>
+  </servlet>
+  
  
   
  
@@ -72,6 +79,11 @@
   <servlet-mapping>
   	<servlet-name>DeleteProfile</servlet-name>
   	<url-pattern>/deleteProfile</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>DeleteSearch</servlet-name>
+  	<url-pattern>/deleteSearch</url-pattern>
   </servlet-mapping>
   
   
