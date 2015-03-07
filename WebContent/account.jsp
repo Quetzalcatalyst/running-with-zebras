@@ -262,6 +262,15 @@
 			List alladv = (List)profile.getProperty("Alladv");
 			List symptoms = (List)profile.getProperty("Symptoms");
 			
+			// NOTE: the profiles have an extra property called index created accidentally, how to delete this? 
+			
+			String indexString = profileIndex +"";
+			profile.setProperty("IndexStr",indexString); // assigns each profile a unique index to reference when editing/deleting 
+			//logger.info((String)profile.getProperty("IndexStr"));
+			datastore.put(profile);
+			
+			//logger.info("Profile name "+ profile.getProperty("Profname") +" Index "+ profile.getProperty("Index"));
+			
 			profileIndex += 1;
 			
 			// At the moment, only a few headings of each profile is displayed, but the Update Profile Servlet
@@ -295,8 +304,11 @@
 		<%} %>
 		</ul>
 		<div class="row">
-		<!--  NOTE: None of the buttons work at the moment, need to add functionality -->
-		<a href="#" class="button">Remove Profile</a>
+		
+		<form action="/deleteProfile" method="post">
+		<input type="hidden" name="Index" value="${fn:escapeXml(profileIndex)}">
+		<input type="submit" value="Delete Profile" class="button">	
+		</form>
 		<a href="#" class="button">Edit Profile</a>
 		<a href="#" class="button">Run Search</a>
 		</div>

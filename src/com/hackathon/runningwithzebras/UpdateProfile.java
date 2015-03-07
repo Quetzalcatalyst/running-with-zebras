@@ -31,6 +31,8 @@ public class UpdateProfile extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp){
 		
+		// NOTE: needs code to setup url for search here as well 
+		
 		// Initializes datastore/userservices
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	    UserService userService = UserServiceFactory.getUserService();
