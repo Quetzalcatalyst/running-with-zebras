@@ -166,8 +166,10 @@
 		catch(EntityNotFoundException e){
 		}
 		%>
-	
+	<!--  NOTE: remove the extra button -->
 	<a href="#" id="editbio" class="button">Edit Bio</a>
+	<a href="#" id="editBioTest" data-reveal-id="bioModal" class="button">Edit Bio Test</a>
+	
 	</div>
 	<script>
 	$(document).ready(function(){
@@ -176,10 +178,15 @@
 			$(".bio").hide();
 			$(".biocreator").show();
 		})
+		$("#editBioTest").click(function(){
+			$(".biocreator").show();
+			//alert("Buttons clicked")
+		})
 	})
 	</script>
 	
 	<!-- NOTE: Add code to fill this in with information from bio -->
+	<div id="bioModal" class="reveal-modal" data-reveal>
 	<div class = "biocreator">
 	<form action = "/updatebio" method="POST">
 	<fieldset>
@@ -220,7 +227,9 @@
 	</form>
 	
 	</div>
+	</div>
 	<script>
+	
 	$(document).ready(function(){
 		$("#updatebio").click(function(){
 			$(".bio").show();
@@ -230,6 +239,7 @@
 			$(".bio").show();
 			$(".biocreator").hide();
 		})
+	
 	})
 	
 	</script>
@@ -260,7 +270,7 @@
 			List ailment = (List)profile.getProperty("Ailment");
 			List medications = (List)profile.getProperty("Medications");
 			List alladv = (List)profile.getProperty("Alladv");
-			List symptoms = (List)profile.getProperty("Symptoms");
+			List<String> symptoms = (List)profile.getProperty("Symptoms");
 			
 			// NOTE: the profiles have an extra property called index created accidentally, how to delete this? 
 			
@@ -282,6 +292,19 @@
 			pageContext.setAttribute("race",race);
 			pageContext.setAttribute("gender",gender);
 			pageContext.setAttribute("profileIndex", profileIndex);
+			
+			// add code here to make symptoms, then submit it back into search
+			
+			String profileSymptoms;
+			String symptomUrl; 
+			
+			
+			for(String symptom: symptoms){
+				symptom = symptom.replaceAll(" ","+");
+				
+				
+				
+			}
 			
 		
 		%>
@@ -322,10 +345,11 @@
 	
 	
 	<a href="#" id="addprofile" class="button">Create New Profile</a>
-	
+	<a href="#" id="addProfileTest" data-reveal-id="profileModal" class="button">Create New Profile Test</a>
 	</div>
 	
 	
+	<!-- Remove script once the buttons are worked out  -->
 	<!-- Script  -->
 	<script>
 	$(document).ready(function(){
@@ -338,11 +362,16 @@
 			$(".profilecreator").show();
 			
 		})
+		
+		$("#addProfileTest").click(function(){
+			$(".profilecreator").show();
+		})
 	})
 	
 	</script>
 	
 	<!--  Profile Form -->
+	<div id="profileModal" class="reveal-modal" data-reveal>
 	<div class="profilecreator">
 	<form action="/updateprofile" method="POST">
 	  <fieldset>
@@ -402,6 +431,7 @@
 	<!-- NOTE: Add servlet to update profiles -->
 	<input type="submit" value="Submit" id="submitprofile" class="button">
 	<a href="#" id="cancelprofile" class="button">Cancel</a>
+	</div>
 	<!-- NOTE: Add script here to switch back between -->
 	<script>
 	$(document).ready(function(){
@@ -410,6 +440,8 @@
 			$(".profiles").show();
 			$(".profilecreator").hide();		
 		})
+		// NOTE: Change script to hide modal (not profilecreator div)
+		
 		$("#cancelprofile").click(function(){
 			$(".profiles").show();
 			$(".profilecreator").hide();
@@ -471,13 +503,14 @@
 		String indexStr = Integer.toString(searchIndex);
 		search.setProperty("indexStr",indexStr);
 		
-		logger.info("");
+		//logger.info("Search Index:"+ search.getProperty("indexStr"));
 		datastore.put(search);		
 		//logger.info("Name: "+search.getProperty("name")+ "Index: " +search.getProperty("indexStr"));
 		searchIndex += 1; 
 		
 		pageContext.setAttribute("searchName",searchName);
 		pageContext.setAttribute("searchUrl",searchUrl);
+		pageContext.setAttribute("indexStr", indexStr);
 	%>
 	<!-- NOTE: Add code here to edit searches and delete searches  -->
 	<div class="row">
@@ -491,9 +524,12 @@
 		
 		
 		<form action="/deleteSearch" method="post">
-		<input type="hidden" name="Index" value="${fn:escapeXml(indexStr)}">
+		<input type="hidden" name="Index" value="${indexStr}">
 		<input type="submit" value="Delete Profile" class="button tiny">	
 		</form>
+		
+		
+		
 	</div>
 	<% } %>
 	</div>

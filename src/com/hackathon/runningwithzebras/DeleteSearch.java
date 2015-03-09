@@ -34,21 +34,28 @@ public class DeleteSearch extends HttpServlet {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Key userKey = KeyFactory.createKey("User", userid);
 		
-				
+		logger.info("Index from HTML File" + req.getParameter("Index"));
+		/*
+		Filter indexFilter2 = 
+				new FilterPredicate("")
+		*/
+		 
 		Filter indexFilter = 
 				new FilterPredicate("indexStr",FilterOperator.EQUAL,req.getParameter("Index"));
+		
+		
 		
 		Query qs = new Query("Search").setAncestor(userKey).setFilter(indexFilter);
 				//.setKeysOnly();
 		
-		logger.info("We're trying to delete the search");
+		//logger.info("We're trying to delete the search");
 		
 		PreparedQuery pq = datastore.prepare(qs);
 		for (Entity search : pq.asIterable())
 		{
-			logger.info("Search Name: "+search.getProperty("name")+" Index:"+ search.getProperty("indexStr"));
-			//Key searchKey = search.getKey();
-			//datastore.delete(searchKey);
+			//logger.info("Search Name: "+search.getProperty("name")+" Index:"+ search.getProperty("indexStr"));
+			Key searchKey = search.getKey();
+			datastore.delete(searchKey);
 		}
 		//Entity profile = pq.asSingleEntity();
 		//logger.info((String)profile.getProperty("Profname") + (String)profile.getProperty("Index"));
