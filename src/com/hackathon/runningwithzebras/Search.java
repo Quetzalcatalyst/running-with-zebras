@@ -123,7 +123,7 @@ public class Search extends HttpServlet {
 			InputSource responseXML = new InputSource(in);
 			
 			
-			List<Zebra> zebralist = new LinkedList<Zebra>();
+			final List<Zebra> zebralist = new LinkedList<Zebra>();
 			
 			// Defines the default handler to be used in the parser 
 			DefaultHandler myHandler = new DefaultHandler() {
