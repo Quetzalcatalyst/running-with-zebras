@@ -167,18 +167,13 @@
 		}
 		%>
 	<!--  NOTE: remove the extra button -->
-	<a href="#" id="editbio" class="button">Edit Bio</a>
-	<a href="#" id="editBioTest" data-reveal-id="bioModal" class="button">Edit Bio Test</a>
+	<a href="#" id="editBio" data-reveal-id="bioModal" class="button">Edit Bio Test</a>
 	
 	</div>
 	<script>
 	$(document).ready(function(){
 		$(".biocreator").hide();
-		$("#editbio").click(function(){
-			$(".bio").hide();
-			$(".biocreator").show();
-		})
-		$("#editBioTest").click(function(){
+		$("#editBio").click(function(){
 			$(".biocreator").show();
 			//alert("Buttons clicked")
 		})
@@ -223,9 +218,8 @@
 	
 	<!--  Calls Servlet to update bio -->
 	<input type="submit" value="Update" id="updatebio" class="button">
-	<a href="#" id="cancelbio" class="button">Cancel</a>
 	</form>
-	
+	<a class="close-reveal-modal">&#215;</a>
 	</div>
 	</div>
 	<script>
