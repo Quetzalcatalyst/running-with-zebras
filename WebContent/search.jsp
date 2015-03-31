@@ -40,56 +40,7 @@
 
 <!-- NOTE: Add code to save search  -->
 
-<!--  Java code to get username/etc.  -->
-<%
-	String username;
-	UserService userService = UserServiceFactory.getUserService();
-	User user = userService.getCurrentUser();
-	
-	
-	if (user != null) {	
-		username = user.getNickname();
-		pageContext.setAttribute("username", username);
-	}
-	
-	else {
-		username = "Guest";
-		pageContext.setAttribute("username", username);
-	}
-	
-  
-%>
-
-<!-- Code for nav bar -->
-<nav class="top-bar" data-topbar role="navigation">
-	<ul class="title-area">
-		<li class="name">
-			<h1><a href="home.jsp">Running with Zebras</a></h1>
-			</li>
-	</ul>
-	<!-- Add different links to the nav bar -->
-	<section class="top-bar-section">
-	<ul class="left">
-		<li><a href="#">About</a></li>
-		<li><a href="#">Contact</a></li>
-		
-	</ul>
-	<ul class="right">
-		<li class="has-dropdown">
-		<!-- Add name that dynamically changes based on user -->
-			<a href="account.jsp">${fn:escapeXml(username)}</a>
-			<ul class="dropdown">
-				<!-- NOTE: Make Login/Logout servlet -->	
-				<% if (!userService.isUserLoggedIn()){
-					%><li><a href="<%=userService.createLoginURL("/home.jsp")%>">Login</a></li>			
-				<% } else{ %>
-				     <li><a href="<%=userService.createLogoutURL("/home.jsp")%>">Logout</a></li>
-				<% } %>
-				<!-- <li><a href="/user_test">Test</a> -->
-			</ul>
-			</li>
-	</ul>
-</nav>
+<jsp:include page="navbar.jsp"/>
 
 
 <!--  NOTE: need to change text in placeholder to be editable -->
