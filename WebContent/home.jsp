@@ -115,7 +115,6 @@ $(document).foundation();
 <img src="zebras_wallpaper.jpg" alt="Zebra Banner">
 
 
-
 <!-- NOTE: change formatting to add search icon -->
 
 <div class="row">

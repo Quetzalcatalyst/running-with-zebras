@@ -39,6 +39,7 @@
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+	<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
