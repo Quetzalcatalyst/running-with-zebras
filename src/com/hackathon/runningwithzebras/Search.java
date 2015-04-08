@@ -44,8 +44,9 @@ public class Search extends HttpServlet {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-		      throws IOException {		    
-		    
+		      throws IOException {	
+			
+			//logger.info("Is it recording changes?");
 			// add code here to check if the searchUrl is already available, otherwise make it out of search query
 			// 
 			
