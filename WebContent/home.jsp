@@ -90,6 +90,7 @@ $(document).foundation();
 	<ul class="left">
 		<li><a href="#">About</a></li>
 		<li><a href="#">Contact</a></li>
+		<li><a href="/apiexplorer.jsp">API Explorer</a></li>
 		
 	</ul>
 	<ul class="right">
