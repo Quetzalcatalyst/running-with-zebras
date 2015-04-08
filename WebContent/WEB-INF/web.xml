@@ -49,6 +49,18 @@
   	<servlet-class>com.hackathon.runningwithzebras.DeleteSearch</servlet-class>
   </servlet>
   
+  <servlet>
+  	<description>Servlet used to explore FDA API</description>
+  	<servlet-name>OpenFdaApiExplorer</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.OpenFdaApiExplorer</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<description>Servlet used to explore Zebra API</description>
+  	<servlet-name>FindZebraApiExplorer</servlet-name>
+  	<servlet-class>com.hackathon.runningwithzebras.FindZebraApiExplorer</servlet-class>
+  </servlet>
+  
  
   
  
@@ -84,6 +96,16 @@
   <servlet-mapping>
   	<servlet-name>DeleteSearch</servlet-name>
   	<url-pattern>/deleteSearch</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>OpenFdaApiExplorer</servlet-name>
+  	<url-pattern>/fdaexplorer</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+  	<servlet-name>FindZebraApiExplorer</servlet-name>
+  	<url-pattern>/zebraexplorer</url-pattern>
   </servlet-mapping>
   
   
